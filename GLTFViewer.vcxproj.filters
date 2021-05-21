@@ -18,5 +18,12 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\Shaders\vertexShader.glsl" />
+    <None Include="resource\Shaders\fragmentShader.glsl" />
   </ItemGroup>
 </Project>
