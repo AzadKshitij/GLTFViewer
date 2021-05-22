@@ -5,10 +5,13 @@ class VertexBuffer
 {
 	public:
 		GLuint ID;
-		VertexBuffer(GLuint* vertices, GLsizeiptr size);
+		VertexBuffer(GLfloat* vertices, GLsizeiptr size);
 
+		// Binds the VBO
 		void Bind();
+		// Unbinds the VBO
 		void Unbind();
+		// Deletes the VBO
 		void Delete();
 
 

@@ -72,22 +72,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\includes;$(IncludePath)</IncludePath>
+    <IncludePath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\src;C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\includes;$(IncludePath)</IncludePath>
     <LibraryPath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\includes;$(IncludePath)</IncludePath>
+    <IncludePath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\src;C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\includes;$(IncludePath)</IncludePath>
     <LibraryPath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\includes;$(IncludePath)</IncludePath>
+    <IncludePath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\src;C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\includes;$(IncludePath)</IncludePath>
     <LibraryPath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\includes;$(IncludePath)</IncludePath>
+    <IncludePath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\src;C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\includes;$(IncludePath)</IncludePath>
     <LibraryPath>C:\DEV\OpenGL\GLTFViewer\GLTFViewer\Vendors\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -102,6 +102,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy .\src\default.frag .\x64\Debug\
+copy .\src\default.vert .\x64\Debug\
+.\x64\Debug\GLTFViewer.exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -119,6 +124,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy .\src\default.frag .\x64\Debug\
+copy .\src\default.vert .\x64\Debug\
+.\x64\Debug\GLTFViewer.exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -132,6 +142,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy .\src\default.frag .\x64\Debug\
+copy .\src\default.vert .\x64\Debug\
+.\x64\Debug\GLTFViewer.exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -149,14 +164,30 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy .\src\default.frag .\x64\Debug\
+copy .\src\default.vert .\x64\Debug\
+.\x64\Debug\GLTFViewer.exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Renderer\ElementBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Renderer\stb_image.cpp" />
+    <ClCompile Include="src\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resource\Shaders\fragmentShader.glsl" />
-    <None Include="resource\Shaders\vertexShader.glsl" />
+    <None Include="src\default.frag" />
+    <None Include="src\default.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Renderer\ElementBuffer.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
+    <ClInclude Include="src\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Renderer\VertexBuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
