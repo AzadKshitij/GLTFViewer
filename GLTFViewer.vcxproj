@@ -103,9 +103,8 @@
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy .\src\default.frag .\x64\Debug\
-copy .\src\default.vert .\x64\Debug\
-.\x64\Debug\GLTFViewer.exe</Command>
+      <Command>copy .\resource\ .\x64\Debug\
+Xcopy /E /I .\resource\ .\x64\Debug\resource\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -125,9 +124,8 @@ copy .\src\default.vert .\x64\Debug\
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy .\src\default.frag .\x64\Debug\
-copy .\src\default.vert .\x64\Debug\
-.\x64\Debug\GLTFViewer.exe</Command>
+      <Command>copy .\resource\ .\x64\Debug\
+Xcopy /E /I .\resource\ .\x64\Debug\resource\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,9 +141,8 @@ copy .\src\default.vert .\x64\Debug\
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy .\src\default.frag .\x64\Debug\
-copy .\src\default.vert .\x64\Debug\
-.\x64\Debug\GLTFViewer.exe</Command>
+      <Command>copy .\resource\ .\x64\Debug\
+Xcopy /E /I .\resource\ .\x64\Debug\resource\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,9 +162,8 @@ copy .\src\default.vert .\x64\Debug\
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy .\src\default.frag .\x64\Debug\
-copy .\src\default.vert .\x64\Debug\
-.\x64\Debug\GLTFViewer.exe</Command>
+      <Command>copy .\resource\ .\x64\Debug\
+Xcopy /E /I .\resource\ .\x64\Debug\resource\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -180,14 +176,19 @@ copy .\src\default.vert .\x64\Debug\
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\default.frag" />
-    <None Include="src\default.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="src\Renderer\ElementBuffer.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default.frag" />
+    <None Include="default.vert" />
+    <None Include="resource\Shaders\default.frag" />
+    <None Include="resource\Shaders\default.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\Images\tex1.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
