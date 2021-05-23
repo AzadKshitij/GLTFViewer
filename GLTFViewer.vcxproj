@@ -190,6 +190,7 @@
     <None Include="resource\Shaders\default.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resource\Images\brick.png" />
     <Image Include="resource\Images\tex1.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
