@@ -53,11 +53,11 @@ void Camera::Inputs(GLFWwindow* window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
-		speed = 0.4f;
+		speed = 0.04f;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
 	{
-		speed = 0.1f;
+		speed = 0.01f;
 	}
 
 
@@ -107,4 +107,12 @@ void Camera::Inputs(GLFWwindow* window)
 		// Makes sure the next time the camera looks around it doesn't jump
 		firstClick = true;
 	}
+
+	/*glfwSetScrollCallback(window, scroll_callback);
+	void scroll_callback(GLFWwindow * window, double xoffset, double yoffset)
+	{
+		glm::quat(glm::vec3(Camera::Orientation));
+		glm::rotate(Camera::Orientation, glm::vec3(0.0f, 0.0f, -1.0f));
+	}*/
 }
+
