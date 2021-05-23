@@ -1,13 +1,19 @@
 #include <iostream>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 #include <stb/stb_image.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <Renderer/Shader.h>
 #include <Renderer/VertexArray.h>
 #include <Renderer/VertexBuffer.h>
 #include <Renderer/ElementBuffer.h>
-
+#include <Renderer/Texture.h>
 
 // Vertices coordinates
 GLfloat vertices[] =
@@ -90,31 +96,8 @@ int main()
 
 	// Textures
 
-	int imgWidth, imgHeight, colorChnl;
-	unsigned char* imageData = stbi_load("./resource/Images/tex1.jpg", &imgWidth, &imgHeight, &colorChnl, 0);
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S , GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T , GL_REPEAT);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB , imgWidth, imgHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	stbi_image_free(imageData);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	GLuint tex0ID = glGetUniformLocation(shaderProgram.ID, "tex0");
-	shaderProgram.Activate();
-	glUniform1i(tex0ID, 0);
-
-
+	Texture texture("./resource/Images/tex1.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+	texture.TexUnit(shaderProgram, "tex0", 0);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -123,8 +106,30 @@ int main()
 		
 		shaderProgram.Activate();
 
+		// GLM
+
+		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 proj = glm::mat4(1.0f);
+
+		view = glm::translate(view, glm::vec3(0.1f, -0.5f, -2.0f));
+		proj = glm::perspective(glm::radians(45.0f), (float)(width / height), 0.1f, 100.0f);
+
+
+		GLuint modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));		
+
+		GLuint viewLoc = glGetUniformLocation(shaderProgram.ID, "view");
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+		GLuint projLoc = glGetUniformLocation(shaderProgram.ID, "proj");
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+
+
+
+
 		glUniform1f(scaleID, 0.5f);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		texture.Bind();
 		
 		VAO.Bind();
 		
@@ -137,8 +142,8 @@ int main()
 	VAO.Delete();
 	VBO.Delete();
 	EBO.Delete();
-	
-	glDeleteTextures(1, &texture);
+
+	texture.Delete();	
 
 	shaderProgram.Delete();
 
