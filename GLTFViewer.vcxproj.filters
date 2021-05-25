@@ -78,5 +78,8 @@
     <Image Include="resource\Images\brick.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resource\Images\brick_spec.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

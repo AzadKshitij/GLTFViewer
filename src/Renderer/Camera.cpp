@@ -65,17 +65,17 @@ void Camera::Inputs(GLFWwindow* window, GLfloat delta)
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 	{
 		speed = 0.001f;
-		printf("spped of camera is %f\n", speed);
+		//printf("spped of camera is %f\n", speed);
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
-		speed = 0.5f;
-		printf("spped of camera is %f\n", speed);
+		speed = 0.08f;
+		//printf("spped of camera is %f\n", speed);
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
 	{
-		speed = 0.01f;
-		printf("spped of camera is %f\n", speed);
+		speed = 0.005f;
+		//printf("spped of camera is %f\n", speed);
 	}
 
 

@@ -32,7 +32,7 @@ class Camera
 		int height;
 
 		// Adjust the speed of the camera and it's sensitivity when looking around
-		float speed = 0.01f;
+		float speed = 0.005f;
 		float sensitivity = 100.0f;
 
 		// Camera constructor to set up initial values

@@ -16,7 +16,7 @@
 #include <Renderer/Texture.h>
 #include <Renderer/Camera.h>
 
-
+/* pyramid
 // Vertices coordinates
 GLfloat vertices[] =
 { //     COORDINATES     /        COLORS          /    TexCoord   /        NORMALS       //
@@ -53,7 +53,23 @@ GLuint indices[] =
 	10, 12, 11, // Right side
 	13, 15, 14 // Facing side
 };
+*/
 
+// Vertices coordinates
+GLfloat vertices[] =
+{ //     COORDINATES     /        COLORS        /    TexCoord    /       NORMALS     //
+	-1.0f, 0.0f,  1.0f,		0.0f, 0.0f, 0.0f,		0.0f, 0.0f,		0.0f, 1.0f, 0.0f,
+	-1.0f, 0.0f, -1.0f,		0.0f, 0.0f, 0.0f,		0.0f, 1.0f,		0.0f, 1.0f, 0.0f,
+	 1.0f, 0.0f, -1.0f,		0.0f, 0.0f, 0.0f,		1.0f, 1.0f,		0.0f, 1.0f, 0.0f,
+	 1.0f, 0.0f,  1.0f,		0.0f, 0.0f, 0.0f,		1.0f, 0.0f,		0.0f, 1.0f, 0.0f
+};
+
+// Indices for vertices order
+GLuint indices[] =
+{
+	0, 1, 2,
+	0, 2, 3
+};
 
 GLfloat lightVertices[] =
 { //     COORDINATES     //
@@ -168,7 +184,7 @@ int main()
 
 
 
-	glm::vec4 lightColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
@@ -190,9 +206,11 @@ int main()
 
 	// Textures
 
-	Texture texture("./resource/Images/brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture texture("./resource/Images/planks.png", GL_TEXTURE_2D, 0,  GL_RGBA, GL_UNSIGNED_BYTE);
 	//Texture texture("./resource/Images/tex1.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 	texture.TexUnit(defaultShader, "tex0", 0);
+	Texture textureSpec("./resource/Images/planksSpec.png", GL_TEXTURE_2D, 1, GL_RED, GL_UNSIGNED_BYTE);
+	textureSpec.TexUnit(defaultShader, "tex1", 1);
 
 
 	glEnable(GL_DEPTH_TEST);
@@ -210,7 +228,7 @@ int main()
 		if (currentTime - lastTime >= 1.0) 
 		{ // If last prinf() was more than 1 sec ago
 			delta = 1000.0 / float(nbFrames);
-			printf("delta = %f\n", delta);
+			printf("delta = %f ms\n", delta);
 			nbFrames = 0;
 			lastTime += 1.0;
 		}
@@ -227,10 +245,14 @@ int main()
 		defaultShader.Activate();
 		// Exports the camera Position to the Fragment Shader for specular lighting
 		glUniform3f(glGetUniformLocation(defaultShader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+		glUniform1f(glGetUniformLocation(defaultShader.ID, "ambiantIntencity"), 0.2f);
+		glUniform1f(glGetUniformLocation(defaultShader.ID, "specularIntencity"), 0.5f);
+		glUniform1f(glGetUniformLocation(defaultShader.ID, "specularAmount"), 20.0f);
 		// Export the camMatrix to the Vertex Shader of the pyramid
 		camera.Matrix(defaultShader, "camMatrix");
 		// Binds texture so that is appears in rendering
 		texture.Bind();
+		textureSpec.Bind();
 		// Bind the VAO so OpenGL knows to use it
 		defaultVAO.Bind();
 		// Draw primitives, number of indices, datatype of indices, index of indices
