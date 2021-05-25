@@ -190,6 +190,8 @@
     <None Include="default.vert" />
     <None Include="resource\Shaders\default.frag" />
     <None Include="resource\Shaders\default.vert" />
+    <None Include="resource\Shaders\light.frag" />
+    <None Include="resource\Shaders\light.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\Images\brick.png" />
